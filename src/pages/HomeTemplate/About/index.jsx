@@ -1,8 +1,11 @@
 import React from 'react';
+import {useMagicColor} from "../Hooks/_custom/useMagicColor.js";
 
 function About() {
+    const color = useMagicColor()
+    console.log("🚀 ~ About ~ color: ", color);
     return (
-        <div>About</div>
+        <div>Custom Hook</div>
     );
 }
 
