@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ListMovie(props) {
+function ListMovie() {
     return (
         <div>ListMovie</div>
     );
