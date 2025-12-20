@@ -9,22 +9,32 @@ import Dashboard from "../pages/AdminTemplate/Dashboard/index.jsx";
 import AddUser from "../pages/AdminTemplate/AddUser/index.jsx";
 import PageNotFound from "../pages/PageNotFound/index.jsx";
 import Hooks from "../pages/HomeTemplate/Hooks/index.jsx";
+import MovieDetail from "../pages/HomeTemplate/Detail/index.jsx";
 
 
 const routes = [{
-    path: "", element: HomeTemplate, name: "HomeTemplate", nested: [{path: "", element: Home, name: "Home"}, {
-        path: "about", element: About, name: "About"
-    }, {path: "list-movie", element: ListMovie, name: "List Movie"}, {path: "hooks", element: Hooks, name: "Hooks"},]
-}, {
-    path: "admin",
-    element: AdminTemplate,
-    name: "AdminTemplate",
-    nested: [{path: "dashboard", element: Dashboard, name: "Dashboard"}, {
-        path: "add-user", element: AddUser, name: "AddUser"
-    },]
-}, {
-    path: "*", element: PageNotFound
-}]
+    path: "",
+    element: HomeTemplate,
+    name: "HomeTemplate",
+    nested: [
+        {path: "", element: Home, name: "Home"},
+        {path: "about", element: About, name: "About"},
+        {path: "list-movie", element: ListMovie, name: "List Movie"},
+        {path: "hooks", element: Hooks, name: "Hooks"},
+        {path: "movie-detail/:id", element: MovieDetail},
+    ]
+},
+    {
+        path: "admin",
+        element: AdminTemplate,
+        name: "AdminTemplate",
+        nested: [
+            {path: "dashboard", element: Dashboard, name: "Dashboard"},
+            {path: "add-user", element: AddUser, name: "AddUser"},
+        ]
+    },
+    {path: "*", element: PageNotFound}
+]
 
 const rederRoutes = () => {
     return (routes?.map((route, index) => {
