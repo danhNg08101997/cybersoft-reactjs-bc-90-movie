@@ -9,7 +9,6 @@ function MovieDetail() {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.moviesDetailReducer);
   const { data } = state;
-  console.log("🚀 ~ MovieDetail ~ data: ", data);
 
   useEffect(() => {
     dispatch(fetchDetailMovie(id));
@@ -18,10 +17,10 @@ function MovieDetail() {
 
   return (
     <div>
-      <p>Ma Phim: {data?.maPhim}</p>
-      <p>Ten Phim: {data?.tenPhim}</p>
-      <p>Bi Danh: {data?.biDanh}</p>
-      <img className="rounded-t-base" src={data?.hinhAnh} alt={data?.biDanh} />
+      <p>Ma Phim: {data?.detail.maPhim}</p>
+      <p>Ten Phim: {data?.detail.tenPhim}</p>
+      <p>Bi Danh: {data?.detail.biDanh}</p>
+      <img className="rounded-t-base" src={data?.detail.hinhAnh} alt={data?.detail.biDanh} />
     </div>
   );
 }

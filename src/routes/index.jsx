@@ -10,6 +10,7 @@ import AddUser from "../pages/AdminTemplate/AddUser/index.jsx";
 import PageNotFound from "../pages/PageNotFound/index.jsx";
 import Hooks from "../pages/HomeTemplate/Hooks/index.jsx";
 import MovieDetail from "../pages/HomeTemplate/Detail/index.jsx";
+import Auth from "../pages/AdminTemplate/Auth/index.jsx";
 
 const routes = [
   {
@@ -34,6 +35,7 @@ const routes = [
     ],
   },
   { path: "*", element: PageNotFound },
+  { path: "auth", element: Auth },
 ];
 
 const rederRoutes = () => {

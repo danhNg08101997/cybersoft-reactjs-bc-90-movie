@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import api from "../../../services/api";
 
 const initialState = {
   loading: false,
@@ -11,15 +11,15 @@ export const fetchDetailMovie = createAsyncThunk(
   "detailMovie/fetchDetailMovie",
   async (arg, { rejectWithValue }) => {
     try {
-      const result = await axios({
-        url: `https://movienew.cybersoft.edu.vn/api/QuanLyPhim/LayThongTinPhim?MaPhim=${arg}`,
-        method: "get",
-        headers: {
-          TokenCybersoft:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA5MCIsIkhldEhhblN0cmluZyI6IjI5LzA1LzIwMjYiLCJIZXRIYW5UaW1lIjoiMTc4MDAxMjgwMDAwMCIsIm5iZiI6MTc1MzAzMDgwMCwiZXhwIjoxNzgwMTYwNDAwfQ.KkGRtLpEsgoM4M_TapjOZIzvAwbay3QvXIwwN8XUqWk",
-        },
-      });
-      return result.data.content;
+      const [resultDetail, resultSchedule] = await Promise.all([
+        api.get(`QuanLyPhim/LayThongTinPhim?MaPhim=${arg}`),
+        api.get(`QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${arg}`),
+      ]);
+      const result = {
+        detail: resultDetail.data.content,
+        schedule: resultSchedule.data.content,
+      };
+      return result;
     } catch (error) {
       return rejectWithValue(error);
     }
