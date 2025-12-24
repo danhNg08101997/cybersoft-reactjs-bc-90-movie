@@ -1,49 +1,48 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-    loading: false,
-    data: null,
-    error: null,
-}
+  loading: false,
+  data: null,
+  error: null,
+};
 
 export const fetchDetailMovie = createAsyncThunk(
-    "detailMovie/fetchDetailMovie",
-    async (arg, {rejectWithValue}) => {
-        try {
-            const result = await axios({
-                url: `https://movienew.cybersoft.edu.vn/api/QuanLyPhim/LayThongTinPhim?MaPhim=${arg}`,
-                method: "get",
-                headers: {
-                    TokenCybersoft: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA5MCIsIkhldEhhblN0cmluZyI6IjI5LzA1LzIwMjYiLCJIZXRIYW5UaW1lIjoiMTc4MDAxMjgwMDAwMCIsIm5iZiI6MTc1MzAzMDgwMCwiZXhwIjoxNzgwMTYwNDAwfQ.KkGRtLpEsgoM4M_TapjOZIzvAwbay3QvXIwwN8XUqWk"
-                }
-
-            })
-            return result.data.content;
-
-        }catch(error) {
-            return rejectWithValue(error);
-        }
+  "detailMovie/fetchDetailMovie",
+  async (arg, { rejectWithValue }) => {
+    try {
+      const result = await axios({
+        url: `https://movienew.cybersoft.edu.vn/api/QuanLyPhim/LayThongTinPhim?MaPhim=${arg}`,
+        method: "get",
+        headers: {
+          TokenCybersoft:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA5MCIsIkhldEhhblN0cmluZyI6IjI5LzA1LzIwMjYiLCJIZXRIYW5UaW1lIjoiMTc4MDAxMjgwMDAwMCIsIm5iZiI6MTc1MzAzMDgwMCwiZXhwIjoxNzgwMTYwNDAwfQ.KkGRtLpEsgoM4M_TapjOZIzvAwbay3QvXIwwN8XUqWk",
+        },
+      });
+      return result.data.content;
+    } catch (error) {
+      return rejectWithValue(error);
     }
+  }
 );
 
 const movieDetails = createSlice({
-    name: "movieDetails",
-    initialState,
-    reducers: {},
-    extraReducers: (builder) => {
-        builder.addCase(fetchDetailMovie.pending, (state) => {
-            state.loading = true;
-        })
-        builder.addCase(fetchDetailMovie.fulfilled, (state, action) => {
-            state.loading = false;
-            state.data = action.payload;
-        })
-        builder.addCase(fetchDetailMovie.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.payload;
-        })
-    }
-})
+  name: "movieDetails",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchDetailMovie.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchDetailMovie.fulfilled, (state, action) => {
+      state.loading = false;
+      state.data = action.payload;
+    });
+    builder.addCase(fetchDetailMovie.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+  },
+});
 
 export default movieDetails.reducer;

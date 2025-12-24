@@ -1,20 +1,19 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from "react";
 
 function useMagicColor() {
-    const [color, setColor] = React.useState('');
-    useEffect(() => {
-        const interval = setInterval(() => {
-            const color = Math.floor(Math.random() * 999999);
-            setColor(`#${color}`);
-        }, 1000)
+  const [color, setColor] = React.useState("");
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const color = Math.floor(Math.random() * 999999);
+      setColor(`#${color}`);
+    }, 1000);
 
-        return () => {
-            clearInterval(interval)
-        }
-    }, []);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
-
-    return color
+  return color;
 }
 
-export {useMagicColor};
+export { useMagicColor };
