@@ -1,9 +1,20 @@
-import React, { useState } from "react";
+import React, {useState} from "react"
+import {useDispatch, useSelector} from "react-redux"
+import {authService} from "./slice.js"
+import {Navigate} from "react-router-dom";
+
 function Auth() {
   const [user, setUser] = useState({
     taiKhoan: "",
     matKhau: "",
   });
+
+  const dispatch = useDispatch();
+
+  const authState = useSelector(state => state.authReducer);
+
+  const {loading, error, data} = authState;
+
   const handleOnchange = (e) => {
     const { name, value } = e.target;
     setUser({
@@ -14,14 +25,30 @@ function Auth() {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    dispatch(authService(user))
   };
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
+
+  if (data) {
+    return <Navigate to="/admin/dashboard"/>
+  }
 
   return (
     <form className="max-w-sm mx-auto" onSubmit={handleLogin}>
+
+      {error && (
+          <div className="p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
+            {error?.response?.data?.content}
+          </div>
+      )}
+
       <div className="mb-5">
         <label
-          htmlFor="email"
-          className="block mb-2.5 text-sm font-medium text-heading"
+            htmlFor="email"
+            className="block mb-2.5 text-sm font-medium text-heading"
         >
           Tai khoan
         </label>
