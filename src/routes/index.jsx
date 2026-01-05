@@ -1,41 +1,30 @@
-import React from "react";
+import { lazy } from "react";
 import { NavLink, Route } from "react-router-dom";
-import HomeTemplate from "../pages/HomeTemplate/HomeTemplate.jsx";
-import Home from "../pages/HomeTemplate/Home/index.jsx";
-import About from "../pages/HomeTemplate/About/index.jsx";
-import ListMovie from "../pages/HomeTemplate/ListMovie/index.jsx";
-import AdminTemplate from "../pages/AdminTemplate/AdminTemplate.jsx";
-import Dashboard from "../pages/AdminTemplate/Dashboard/index.jsx";
-import AddUser from "../pages/AdminTemplate/AddUser/index.jsx";
-import PageNotFound from "../pages/PageNotFound/index.jsx";
-import Hooks from "../pages/HomeTemplate/Hooks/index.jsx";
-import MovieDetail from "../pages/HomeTemplate/Detail/index.jsx";
-import Auth from "../pages/AdminTemplate/Auth/index.jsx";
 
 const routes = [
   {
     path: "",
-    element: HomeTemplate,
+    element: lazy(()=> import("../pages/HomeTemplate/HomeTemplate.jsx")),
     name: "HomeTemplate",
     nested: [
-      { path: "", element: Home, name: "Home" },
-      { path: "about", element: About, name: "About" },
-      { path: "list-movie", element: ListMovie, name: "List Movie" },
-      { path: "hooks", element: Hooks, name: "Hooks" },
-      { path: "movie-detail/:id", element: MovieDetail },
+      { path: "", element: lazy(()=> import("../pages/HomeTemplate/Home/index.jsx")), name: "Home" },
+      { path: "about", element: lazy(()=> import("../pages/HomeTemplate/About/index.jsx")), name: "About" },
+      { path: "list-movie", element: lazy(()=> import("../pages/HomeTemplate/ListMovie/index.jsx")), name: "List Movie" },
+      { path: "hooks", element: lazy(()=> import("../pages/HomeTemplate/Hooks/index.jsx")), name: "Hooks" },
+      { path: "movie-detail/:id", element: lazy(()=> import("../pages/HomeTemplate/HomeTemplate.jsx")) },
     ],
   },
   {
     path: "admin",
-    element: AdminTemplate,
+    element: lazy(()=> import("../pages/AdminTemplate/AdminTemplate.jsx")),
     name: "AdminTemplate",
     nested: [
-      { path: "dashboard", element: Dashboard, name: "Dashboard" },
-      { path: "add-user", element: AddUser, name: "AddUser" },
+      { path: "dashboard", element: lazy(()=> import("../pages/AdminTemplate/Dashboard/index.jsx")), name: "Dashboard" },
+      { path: "add-user", element: lazy(()=> import("../pages/AdminTemplate/AddUser/index.jsx")), name: "AddUser" },
     ],
   },
-  { path: "*", element: PageNotFound },
-  { path: "auth", element: Auth },
+  { path: "*", element: lazy(()=> import("../pages/PageNotFound/index.jsx")) },
+  { path: "auth", element: lazy(()=> import("../pages/AdminTemplate/Auth/index.jsx")) },
 ];
 
 const rederRoutes = () => {

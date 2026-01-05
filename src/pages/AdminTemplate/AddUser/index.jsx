@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import { addUserService } from './slice';
+import { useDispatch } from 'react-redux';
 
 function AddUser() {
 
@@ -12,9 +14,12 @@ function AddUser() {
         maLoaiNguoiDung: "KhachHang",
     });
 
+    const dispatch = useDispatch()
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("🚀 ~ AddUser ~ user: ", user);
+        dispatch(addUserService(user))
     }
 
     const handleOnChange = (e) => {
